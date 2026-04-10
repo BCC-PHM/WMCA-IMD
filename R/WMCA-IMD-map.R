@@ -31,9 +31,11 @@ lsoa_shp <- st_read("data/LSOA21-shapes/LSOA_2021_EW_BFC_V10.shp") %>%
 WMCA_LA_shp <- st_read("data/WMCA-LA-shapes/LAD_MAY_2025_UK_BFC_V2.shp") %>%
   filter(LAD25NM %in% WMCA_LAs)
 
+WMCA_ward_shp <- st_read("data/WMCA-ward-shapes/WD_DEC_2025_UK_BFC.shp")
+
 pallette = ggpubr::get_palette((c("#E47B12", "#FFFFFF")), 20)
 
-map <- tm_shape(lsoa_shp) +
+map1 <- tm_shape(lsoa_shp) +
   tm_fill(
     "IMD Decile",
     fill.scale = tm_scale_continuous(
@@ -70,5 +72,15 @@ map <- tm_shape(lsoa_shp) +
     ), 
     size = 0.8,
     position = c(0, 0.07))
-map 
-tmap_save(map, "output/WMCA_IMD_map.png")
+map1 
+tmap_save(map1, "output/WMCA_IMD_map.png")
+
+# Add wards
+
+map2 <- map1 +
+  tm_shape(WMCA_ward_shp) +
+  tm_borders(
+    lw = 1,
+    col = "darkgray"
+  )
+map2
