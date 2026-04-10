@@ -80,7 +80,8 @@ tmap_save(map1, "output/WMCA_IMD_map.png")
 map2 <- map1 +
   tm_shape(WMCA_ward_shp) +
   tm_borders(
-    lw = 1,
-    col = "darkgray"
+    lwd = 0.5,
+    col = "gray30"
   )
 map2
+tmap_save(map2, "output/WMCA_IMD_map_wards.png")
