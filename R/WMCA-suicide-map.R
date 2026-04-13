@@ -44,7 +44,14 @@ for (i in 1:3) {
       by = join_by("LAD25NM"=="AreaName")
     ) %>%
     mutate(
-      plotVal = formatC(round(Value, 1), format = "f", digits = 1)
+      plotVal = paste0(
+        formatC(round(Value, 1), format = "f", digits = 1),
+        "\n(", 
+        formatC(round(Lower.CI.95.0.limit, 1), format = "f", digits = 1),
+        " - ",
+        formatC(round(Upper.CI.95.0.limit, 1), format = "f", digits = 1),
+        ")"
+      )
     )
   
   pallette = ggpubr::get_palette(c( "#FFFFFF", "#E47B12"), 20)
